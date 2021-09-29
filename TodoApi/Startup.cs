@@ -16,14 +16,17 @@ namespace TodoApi
             Configuration = configuration;
         }
 
+
+
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
             services.AddSwaggerGen();
-            services.AddDbContext<TodoContext>(opt =>
-                                               opt.UseInMemoryDatabase("TodoList"));
+         
+            services.AddDbContext<TodoContext>(options =>
+        options.UseSqlServer(Configuration.GetConnectionString("BloggingDatabase")));
             //services.AddSwaggerGen(c =>
             //{
             //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "TodoApi", Version = "v1" });
